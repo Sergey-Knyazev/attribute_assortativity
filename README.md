@@ -6,7 +6,7 @@ Calculates attribute assortativity for a graph
 python3 attribute_assortativity.py -n <node_attribute.csv> -e <edge_list.csv> <attr1> [<attr2>, ..., <attrN>] > <out.csv>
 ```
 # dependency:
-The tool uses following libraries:
+The tool uses the following libraries:
 1) argparse (https://pypi.org/project/argparse/)
 ```
 pip3 install argparse
