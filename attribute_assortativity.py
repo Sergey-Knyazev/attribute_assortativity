@@ -30,11 +30,15 @@ def parse_nodes(node_csv):
         node_reader = csv.DictReader(csvfile)
         n = next(node_reader)
         attrs = list(n.keys())
-        for n in node_reader:
+        while True:
             node_name = n[attrs[0]]
             nodes[node_name] = dict()
             for attr in attrs[1:]:
                 nodes[node_name][attr] = n[attr]
+            try:
+                n = next(node_reader)
+            except StopIteration:
+                break
     return nodes
 
 
@@ -44,10 +48,14 @@ def parse_edges(edge_csv):
         edge_reader = csv.DictReader(csvfile)
         n = next(edge_reader)
         attrs = list(n.keys())
-        for n in edge_reader:
+        while True:
             source_name = n[attrs[0]]
             target_name = n[attrs[1]]
             edges.append((source_name, target_name))
+            try:
+                n = next(edge_reader)
+            except StopIteration:
+                break
     return edges
 
 if __name__ == "__main__":
@@ -56,6 +64,6 @@ if __name__ == "__main__":
     G.add_nodes_from(parse_nodes(args.node_csv).items())
     G.add_edges_from(parse_edges(args.edge_csv))
     with open(args.out_csv, 'w') as f:
-        f.write('attribute, assortativity\n')
+        f.write('attribute,assortativity\n')
         for attr in args.attributes:
             f.write("{},{}\n".format(attr, nx.attribute_assortativity_coefficient(G, attr)))
