@@ -16,9 +16,9 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description='Calculates attribute assortativity coefficients for graphs.')
     parser.add_argument('attributes', metavar='A', type=str, nargs='+', help='attribute for assortativity calculation')
     parser.add_argument('-n', '--nodes', required=True, type=str, dest='node_csv',
-                        help='list of nodes with attributes in csv format. The first column should be a node name')
+                        help='list of nodes with attributes in csv format with header. The first column should be a node name')
     parser.add_argument('-e', '--edges', required=True, type=str, dest='edge_csv',
-                        help='list of edges in csv format. The first two columns should be source ant target names')
+                        help='list of edges in csv format with header. The first two columns should be source ant target names')
     parser.add_argument('-o', '--out_csv', required=True, type=str, dest='out_csv',
                         help='name of output csv file')
     return parser.parse_args()
