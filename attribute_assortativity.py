@@ -21,6 +21,8 @@ def parse_arguments():
                         help='list of edges in csv format with header. The first two columns should be source ant target names')
     parser.add_argument('-o', '--out_csv', required=True, type=str, dest='out_csv',
                         help='name of output csv file')
+    parser.add_argument('-a', '--numeric_assortativity', action='store_true', dest='num_assort',
+                        help='set this parameter if numeric assortativity is required')
     return parser.parse_args()
 
 
@@ -66,4 +68,7 @@ if __name__ == "__main__":
     with open(args.out_csv, 'w') as f:
         f.write('attribute,assortativity\n')
         for attr in args.attributes:
-            f.write("{},{}\n".format(attr, nx.attribute_assortativity_coefficient(G, attr)))
+            f.write("{},{}\n".format(attr,
+            nx.attribute_assortativity_coefficient(G, attr)
+            if args.num_assort else
+            nx.attribute_assortativity_coefficient(G, attr)))
